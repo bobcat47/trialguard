@@ -1,0 +1,239 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 30% 2%;
+    --foreground: 0 0% 96%;
+    --card: 240 20% 5%;
+    --card-foreground: 0 0% 96%;
+    --popover: 240 20% 5%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 260 80% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 15% 10%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 240 15% 12%;
+    --muted-foreground: 240 10% 55%;
+    --accent: 280 70% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 80% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 15% 18%;
+    --input: 240 15% 15%;
+    --ring: 260 80% 65%;
+    --radius: 0.75rem;
+
+    --nexus-void: #030308;
+    --nexus-glass: rgba(255,255,255,0.04);
+    --nexus-glass-hover: rgba(255,255,255,0.08);
+    --nexus-border: rgba(255,255,255,0.08);
+    --nexus-border-hover: rgba(255,255,255,0.14);
+    --nexus-cyan: #00f0ff;
+    --nexus-magenta: #ff00a0;
+    --nexus-violet: #8b5cf6;
+    --nexus-emerald: #00ff9d;
+    --nexus-amber: #ffb800;
+    --nexus-rose: #ff3b5c;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply antialiased;
+    background: var(--nexus-void);
+    color: #e8e8f0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* === NEXUS GLASSMORPHISM === */
+.nexus-glass {
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.nexus-glass-strong {
+  background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 100%);
+  backdrop-filter: blur(40px) saturate(160%);
+  -webkit-backdrop-filter: blur(40px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.nexus-glass-subtle {
+  background: rgba(255,255,255,0.025);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* === IRIDESCENT BORDER === */
+.nexus-iridescent-border {
+  position: relative;
+  border: none;
+}
+
+.nexus-iridescent-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(0,240,255,0.5) 0%,
+    rgba(139,92,246,0.5) 25%,
+    rgba(255,0,160,0.4) 50%,
+    rgba(0,255,157,0.4) 75%,
+    rgba(0,240,255,0.5) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: iridescent-shift 4s ease-in-out infinite;
+}
+
+@keyframes iridescent-shift {
+  0%, 100% { filter: hue-rotate(0deg); opacity: 0.6; }
+  50% { filter: hue-rotate(30deg); opacity: 1; }
+}
+
+/* === NEXUS GLOW === */
+.nexus-glow-cyan {
+  box-shadow: 0 0 20px rgba(0,240,255,0.15), 0 0 60px rgba(0,240,255,0.05), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.nexus-glow-violet {
+  box-shadow: 0 0 20px rgba(139,92,246,0.15), 0 0 60px rgba(139,92,246,0.05), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.nexus-glow-emerald {
+  box-shadow: 0 0 20px rgba(0,255,157,0.15), 0 0 60px rgba(0,255,157,0.05), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.nexus-glow-rose {
+  box-shadow: 0 0 20px rgba(255,59,92,0.15), 0 0 60px rgba(255,59,92,0.05), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.nexus-text-glow {
+  text-shadow: 0 0 20px rgba(139,92,246,0.5), 0 0 40px rgba(0,240,255,0.2);
+}
+
+.nexus-text-glow-emerald {
+  text-shadow: 0 0 20px rgba(0,255,157,0.5), 0 0 40px rgba(0,255,157,0.2);
+}
+
+/* === ANIMATED MESH BACKGROUND === */
+.nexus-mesh-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(139,92,246,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(0,240,255,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 60% at 50% 10%, rgba(255,0,160,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 30% at 70% 80%, rgba(0,255,157,0.05) 0%, transparent 50%);
+  animation: mesh-breathe 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes mesh-breathe {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+/* === SHIMMER / HOLOGRAPHIC === */
+.nexus-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(0,240,255,0.08) 25%,
+    rgba(139,92,246,0.08) 50%,
+    rgba(255,0,160,0.08) 75%,
+    rgba(255,255,255,0) 100%
+  );
+  background-size: 200% 100%;
+  animation: nexus-shimmer 2.5s linear infinite;
+}
+
+@keyframes nexus-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* === IRIDESCENT BUTTON === */
+.nexus-btn-primary {
+  position: relative;
+  background: linear-gradient(135deg, rgba(139,92,246,0.8) 0%, rgba(0,240,255,0.6) 100%);
+  border: none;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.nexus-btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.nexus-btn-primary:hover {
+  box-shadow: 0 0 30px rgba(139,92,246,0.4), 0 0 60px rgba(0,240,255,0.2);
+  transform: translateY(-1px);
+}
+
+/* === STATUS PULSE === */
+@keyframes nexus-pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px currentColor; }
+  50% { box-shadow: 0 0 15px currentColor, 0 0 30px currentColor; }
+}
+
+.nexus-pulse {
+  animation: nexus-pulse-glow 2s ease-in-out infinite;
+}
+
+/* === GRADIENT TEXT === */
+.nexus-gradient-text {
+  background: linear-gradient(135deg, #00f0ff 0%, #8b5cf6 50%, #ff00a0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* === SCROLLBAR === */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 5px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(139,92,246,0.3);
+  border-radius: 10px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(139,92,246,0.5);
+}
+
+/* === CONFETTI === */
+@keyframes confetti-fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(300px) rotate(720deg); opacity: 0; }
+}
